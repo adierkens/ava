@@ -14,8 +14,8 @@ test('diff objects', t => {
 		label: 'Difference:',
 		formatted: [
 			'  ' + actual[0],
-			`${chalk.red('-')} ${actual[1]}`,
-			`${chalk.green('+')} ${expected[1]}`,
+			`- ${actual[1]}`,
+			`+ ${expected[1]}`,
 			'  ' + actual[2]
 		].join('\n')
 	});
@@ -30,8 +30,8 @@ test('diff arrays', t => {
 		label: 'Difference:',
 		formatted: [
 			'  ' + actual[0],
-			`${chalk.red('-')} ${actual[1]}`,
-			`${chalk.green('+')} ${expected[1]}`,
+			`- ${actual[1]}`,
+			`+ ${expected[1]}`,
 			'  ' + actual[2]
 		].join('\n')
 	});
@@ -41,13 +41,16 @@ test('diff arrays', t => {
 test('diff strings', t => {
 	t.same(format.formatDiff('abc', 'abd'), {
 		label: 'Difference:',
-		formatted: `${chalk.red('"ab')}${chalk.bgRed.black('c')}${chalk.bgGreen.black('d')}${chalk.red('"')}`
+		formatted: `- 'ab${chalk.underline('c')}'\n+ 'ab${chalk.underline('d')}'`
 	});
 	t.end();
 });
 
-test('does not diff different types', t => {
-	t.is(format.formatDiff([], {}), null);
+test('diffs different types', t => {
+	t.same(format.formatDiff([], {}), {
+		label: 'Difference:',
+		formatted: '- Array []\n+ Object {}'
+	});
 	t.end();
 });
 

@@ -109,7 +109,7 @@ test('.is()', t => {
 		message: '',
 		operator: '===',
 		values: [
-			{label: 'Difference:', formatted: /foobar/}
+			{label: 'Difference:', formatted: /- 'foo'\n\+ 'bar'/}
 		]
 	});
 
@@ -120,8 +120,7 @@ test('.is()', t => {
 		message: '',
 		operator: '===',
 		values: [
-			{label: 'Actual:', formatted: /foo/},
-			{label: 'Must be strictly equal to:', formatted: /42/}
+			{label: 'Difference:', formatted: /- 'foo'\n\+ 42/}
 		]
 	});
 
@@ -132,8 +131,7 @@ test('.is()', t => {
 		message: 'my message',
 		operator: '===',
 		values: [
-			{label: 'Actual:', formatted: /foo/},
-			{label: 'Must be strictly equal to:', formatted: /42/}
+			{label: 'Difference:', formatted: /- 'foo'\n\+ 42/}
 		]
 	});
 
@@ -391,7 +389,7 @@ test('.deepEqual()', t => {
 	}, {
 		assertion: 'deepEqual',
 		message: '',
-		values: [{label: 'Difference:', formatted: /foobar/}]
+		values: [{label: 'Difference:', formatted: /- 'foo'\n\+ 'bar'/}]
 	});
 
 	failsWith(t, () => {
@@ -399,10 +397,7 @@ test('.deepEqual()', t => {
 	}, {
 		assertion: 'deepEqual',
 		message: '',
-		values: [
-			{label: 'Actual:', formatted: /foo/},
-			{label: 'Must be deeply equal to:', formatted: /42/}
-		]
+		values: [{label: 'Difference:', formatted: /- 'foo'\n\+ 42/}]
 	});
 
 	failsWith(t, () => {
@@ -410,10 +405,7 @@ test('.deepEqual()', t => {
 	}, {
 		assertion: 'deepEqual',
 		message: 'my message',
-		values: [
-			{label: 'Actual:', formatted: /foo/},
-			{label: 'Must be deeply equal to:', formatted: /42/}
-		]
+		values: [{label: 'Difference:', formatted: /- 'foo'\n\+ 42/}]
 	});
 
 	t.end();

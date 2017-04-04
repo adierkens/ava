@@ -3,6 +3,7 @@ const test = require('tap').test;
 const delay = require('delay');
 const isPromise = require('is-promise');
 const formatValue = require('../lib/format-assert-error').formatValue;
+const formatDiff = require('../lib/format-assert-error').formatDiff;
 const Test = require('../lib/test');
 
 const failingTestHint = 'Test was expected to fail, but succeeded, you should stop marking the test as failing';
@@ -377,10 +378,7 @@ test('fails with the first assertError', t => {
 
 	t.is(passed, false);
 	t.is(result.reason.name, 'AssertionError');
-	t.same(result.reason.values, [
-		{label: 'Actual:', formatted: formatValue(1)},
-		{label: 'Must be strictly equal to:', formatted: formatValue(2)}
-	]);
+	t.same(result.reason.values, [formatDiff(1, 2)]);
 	t.end();
 });
 
